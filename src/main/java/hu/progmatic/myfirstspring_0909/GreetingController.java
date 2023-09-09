@@ -1,17 +1,32 @@
 package hu.progmatic.myfirstspring_0909;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/greet")
+import java.util.HashMap;
+import java.util.Map;
+
+@Controller
 public class GreetingController {
 
-    @GetMapping
+    @GetMapping("/greet")
     public String greet() {
-        return "Szia, uram!";
+        return "welcome"; // welcome.html
+    }
+
+    @GetMapping({"", "/home"})
+    public String home() {
+        return "home";
+    }
+
+    @GetMapping("/hello/{name}")
+    public String getNameWelcome(Model model, @PathVariable String name) {
+        model.addAttribute("szemelyNeve", name);
+        return "hello";
     }
 
     @GetMapping("/nice")

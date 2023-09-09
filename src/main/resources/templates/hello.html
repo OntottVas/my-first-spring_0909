@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+</head>
+<body>
+<h1 th:if="${szemelyNeve != null }" th:text="'Szia, ' + ${szemelyNeve} + '!'"></h1>
+<h1 th:unless="${szemelyNeve != null}">Szia, uram!</h1>
+</body>
+</html>

@@ -1,20 +1,21 @@
 package hu.progmatic.myfirstspring_0909;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/weather")
 public class WheatherForecastController{
     // [...]/weather/forecast/budapest --> sunny
     // [...]/weather/forecast/bugyi --> thunderstorm
 
-    Map<String, String> forecasts = new HashMap<String, String>() {{
+    private final Map<String, String> forecasts = new HashMap<String, String>() {{
         put("Budapest", "sunny");
         put("Bugyi", "thunderstorm");
         put("Ozd", "cloudy");
@@ -26,12 +27,10 @@ public class WheatherForecastController{
     }
 
     @GetMapping("/forecast/{city}")
-    public String budapest(@PathVariable String city) {
-        if (forecasts.containsKey(city)) {
-            return city + " forecast: " + forecasts.get(city);
-        } else {
-            return "No forecast " + city;
-        }
+    public String getWeatherForecast(@PathVariable String city, Model model) {
+        model.addAttribute("city", city);
+        model.addAttribute("weather", forecasts.getOrDefault(city, "Nope"));
+        return "weather";
     }
     // getOrDefault
 
